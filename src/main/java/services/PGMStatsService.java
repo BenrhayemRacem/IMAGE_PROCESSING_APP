@@ -193,5 +193,51 @@ public class PGMStatsService {
 		}
 		pgmImage.writeImage(filename);
 	}
+	
+	
+	public void contraste_LUT(int x1 , int y1 , int x2 , int y2) {
+		//int x_pt0 , y_pt0 = 0 ;
+		//int x_pt255 , y_pt255 = 255 ;
+		
+		int a_prePoint1 = 0 ;
+		if(x1 != 0) {
+			  a_prePoint1=y1/x1 ;
+		}
+		int b_prePoint1 = 0 ;
+		
+		int a_entre1_2 =  (y2 - y1) /(x2 - x1) ;
+		int b_entre1_2 = y1 - a_entre1_2 * x1 ;
+		
+		int a_postPoint2 = (255-y2) /(255-y1) ;
+		int b_postPoint2 =  255 - 255 * a_postPoint2 ;
+		
+		 
+		for(int i =0 ; i< LUT_contraste.length ; i++) {
+			//int value = pgmImage.greyLevelHistogram[i] ;
+			if(i<=x1) {
+				LUT_contraste[i] = a_prePoint1 * i + b_prePoint1 ;
+			} if((i>x1) && (i<=x2)) {
+				LUT_contraste[i] = a_entre1_2 * i + b_entre1_2 ;
+			}if(i>x2) {
+				LUT_contraste[i] = a_postPoint2 * i + b_postPoint2 ;
+			}
+		}
+		
+		
+	}
+	
+	// call calculate LUT before this
+	public void newImageAfterContraste(String filename) throws Exception {
+		int lx = this.pgmImage.getLx();
+		int ly = this.pgmImage.getLy();
+		for (int i = 0; i < lx; i++) {
+			for (int k = 0; k < ly; k++) {
+				this.pgmImage.setOnePixelValueForImage(i, k, (short) LUT_contraste[pgmImage.getImage()[i][k]]);
+			}
+			
+
+		}
+		pgmImage.writeImage(filename);
+	}
 
 }

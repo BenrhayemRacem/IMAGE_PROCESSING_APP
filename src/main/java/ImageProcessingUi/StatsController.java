@@ -47,12 +47,31 @@ public class StatsController {
     @FXML 
     private LineChart<String, Number> lineChart ;
     
+    @FXML
+    private Label meanLabel;
+    
+    @FXML 
+    private Label standardDeviationLabel;
+    
+    @FXML
+    private ImageView imageViewAfterContrastLUT;
+    
+    @FXML
+    private LineChart<String, Number> lineChartLUT ;
+    
+    @FXML 
+	private CategoryAxis xAxisLUT ;
+	
+    @FXML 
+    private NumberAxis yAxisLUT ;
+    
 	
 
 	private FileChooser fileChooser = new FileChooser();
 	
 	private String pgmFilePath = null ;
 	private PGMStatsService pgmStatsService = null;
+	private PGMStatsService pgmStatsServiceLUT = null ;
 	
 	
 	
@@ -76,10 +95,11 @@ public class StatsController {
 		  
 	}
 	
-	public double calculateStats() {
+	public void calculateStats() {
 		//PGMStatsService pgmStatsService = new PGMStatsService(this.getPgmFilePath());
 		pgmStatsService.calculateMean();
-		return pgmStatsService.getMean();
+		pgmStatsService.calculateStandardDesviation();
+		
 	}
 	
 	public void drawHistograms() {
@@ -126,6 +146,27 @@ public class StatsController {
 		//System.out.println(imageURL.getPath());
 	}
 	
+	private void drawImageAfterContrasteLUT(int x1 , int y1 , int x2 , int y2) {
+		try {
+			URL imageURL = getClass().getResource("afterContrasteLUT.pgm");
+			 String path = imageURL.getPath() ;
+			 pgmStatsServiceLUT.contraste_LUT(x1, y1, x2, y2);
+			 pgmStatsServiceLUT.newImageAfterContraste(path);
+			 ImagePlus imagePlus = new ImagePlus(path);
+				WritableImage fxImage = SwingFXUtils.toFXImage(imagePlus.getBufferedImage(), null);
+				imageViewAfterContrastLUT.setImage(fxImage);
+				XYChart.Series series1 = new XYChart.Series();
+				series1.setName("original Line");
+				series1.getData().add(new XYChart.Data( "0",0));
+				series1.getData().add(new XYChart.Data( "255",255));
+				lineChartLUT.getData().addAll(series1);
+				
+			
+		}catch(Exception e) {
+			
+		}
+	}
+	
 	
 	@FXML 
 	private void handleFileChooseAction(ActionEvent event) {
@@ -136,12 +177,18 @@ public class StatsController {
 				setPgmFilePath(file.getAbsolutePath());
 				//label.setText(getPgmFilePath() + "  selected");
 				pgmStatsService = new PGMStatsService(pgmFilePath);
+				pgmStatsServiceLUT = new PGMStatsService(pgmFilePath);
 				displayChoosenPGMFile();
 				lineChart.getData().clear();
-				double mean = calculateStats();
-				label.setText(mean+ "  selected");
+				
+				label.setText(getPgmFilePath()+ "  selected");
+				
+				calculateStats();
+				meanLabel.setText("Mean:" + pgmStatsService.getMean());
+				standardDeviationLabel.setText("Standard deviation:" + pgmStatsService.getStandardDeviation());
 				drawHistograms();
 				drawImageAfterHeg();
+				drawImageAfterContrasteLUT(0, 0, 255, 255);
 				
 		}
 		}catch(Exception e) {
@@ -152,6 +199,8 @@ public class StatsController {
 
 	public void initialize() {
 		lineChart.setAnimated(false);
+		lineChartLUT.setAnimated(false);
+
 		
 	}
 	

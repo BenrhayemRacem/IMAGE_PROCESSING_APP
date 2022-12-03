@@ -7,23 +7,44 @@
 <?import javafx.scene.chart.CategoryAxis?>
  <?import javafx.scene.chart.LineChart?>
  <?import javafx.scene.chart.NumberAxis?>
+ 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ImageProcessingUi.StatsController">
+
+<ScrollPane fx:controller="ImageProcessingUi.StatsController" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" maxHeight="200.0" minViewportHeight="0.0" minHeight="0.0">
+<content>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"    >
 <children>
      <Label>
     <text>This application is used for image processing</text>
 </Label>
-<Label fx:id="label" text="Label" />
+<Label fx:id="label" text="no pgm File selected" />
 <Button fx:id="chooseFileButton" text="choose PGM File" onAction="#handleFileChooseAction"/>
 
 <HBox>
 <children>
 <ImageView fx:id="imageView" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
-<ImageView fx:id="imageViewAfterHeg" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+
+
+
+<VBox>
+<children>
+<Label fx:id="meanLabel" text="N/A" />
+<Label fx:id="standardDeviationLabel" text="N/A" />
+</children>
+</VBox>
+
+
+
 </children>
 </HBox>
 
-<LineChart fx:id="lineChart" layoutX="14.0" layoutY="52.0" prefHeight="512.0" prefWidth="887.0" title="Hisotgrams">
+
+
+
+<HBox>
+<children>
+<ImageView fx:id="imageViewAfterHeg" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+<LineChart fx:id="lineChart"  prefHeight="512.0" prefWidth="890.0" title="Hisotgrams">
 <xAxis>
           <CategoryAxis fx:id="xAxis" side="BOTTOM" />
         </xAxis>
@@ -31,8 +52,31 @@
           <NumberAxis fx:id="yAxis" side="LEFT" />
         </yAxis>
       </LineChart>
+      
+ </children>
+ </HBox>     
 
+
+<HBox>
+<children>
+<ImageView fx:id="imageViewAfterContrastLUT" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+
+<LineChart fx:id="lineChartLUT"  prefHeight="512.0" prefWidth="890.0" title="Linear Transformation">
+<xAxis>
+          <CategoryAxis fx:id="xAxisLUT" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="yAxisLUT" side="LEFT" />
+        </yAxis>
+      </LineChart>
+</children>
+</HBox>
 
 
 </children>
 </VBox>
+
+
+</content>
+</ScrollPane>
+
