@@ -1,0 +1,22 @@
+.button {
+    -fx-text-fill: blue;
+	
+}
+
+.label {
+	-fx-text-fill :black ;
+	-fx-font-size :24;
+}
+
+VBox{
+	-fx-fill-width :true;
+	-fx-spacing:10;
+	-fx-alignment :center;
+}
+
+.buttonDemo {
+	-fx-text-fill: red;
+-fx-pref-width :200px;
+-fx-pref-height : 40px;
+-fx-font-size :20;
+}

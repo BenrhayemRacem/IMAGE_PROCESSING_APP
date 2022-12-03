@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ImageProcessingUi.WelcomeController">
+   <children>
+     <Label>
+    <text>This application is used for image processing</text>
+</Label>
+<Label>
+    <text>Here you can retrieve stats about pgm file , filter them </text>
+</Label>
+<Label>
+    <text>Click on demo button down below to get a better idea</text>
+</Label>
+<Button fx:id="buttonDemo" text="Demo" />
+   <Button fx:id="buttonStats" text="pgm stats"/>
+   <Button text="pgm filters"/>
+   <Button text="ppm stats"/>
+   <Button text="ppm filters"/>
+   
+
+   </children>
+</VBox>

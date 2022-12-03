@@ -1,0 +1,25 @@
+plugins {
+    // Apply the java-library plugin for API and implementation separation.
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+}
+
+repositories {
+    // Use JCenter for resolving dependencies.
+mavenCentral()
+}
+dependencies {
+   compile "net.imagej:ij:1.52u"
+}
+
+javafx {
+    version = "19"
+    modules = [ 'javafx.controls', 'javafx.fxml','javafx.graphics','javafx.swing', 'javafx.base' ]
+}
+
+
+
+
+mainClassName = 'ImageProcessingUi.MainApp'
+
+
