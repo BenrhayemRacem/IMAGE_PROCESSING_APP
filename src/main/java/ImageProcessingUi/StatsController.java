@@ -12,6 +12,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.PGMStatsService;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -60,10 +61,25 @@ public class StatsController {
     private LineChart<String, Number> lineChartLUT ;
     
     @FXML 
-	private CategoryAxis xAxisLUT ;
+	private NumberAxis xAxisLUT ;
 	
     @FXML 
     private NumberAxis yAxisLUT ;
+    
+    @FXML
+    private TextField x1 ;
+    
+    @FXML
+    private TextField y1 ;
+    
+    @FXML
+    private TextField x2 ;
+    
+    @FXML
+    private TextField y2 ;
+    
+    @FXML
+	private Button chooseLinearParameters;
     
 	
 
@@ -146,20 +162,33 @@ public class StatsController {
 		//System.out.println(imageURL.getPath());
 	}
 	
-	private void drawImageAfterContrasteLUT(int x1 , int y1 , int x2 , int y2) {
+	private void drawImageAfterContrasteLUT(int x1 , int y1 , int x2 , int y2 ,PGMStatsService pgmFile) {
 		try {
 			URL imageURL = getClass().getResource("afterContrasteLUT.pgm");
 			 String path = imageURL.getPath() ;
-			 pgmStatsServiceLUT.contraste_LUT(x1, y1, x2, y2);
-			 pgmStatsServiceLUT.newImageAfterContraste(path);
+			 
+			 //pgmStatsServiceLUT.contraste_LUT(x1, y1, x2, y2);
+			 //pgmStatsServiceLUT.newImageAfterContraste(path);
+			 pgmFile.contraste_LUT(x1, y1, x2, y2);
+			 pgmFile.newImageAfterContraste(path);
 			 ImagePlus imagePlus = new ImagePlus(path);
 				WritableImage fxImage = SwingFXUtils.toFXImage(imagePlus.getBufferedImage(), null);
 				imageViewAfterContrastLUT.setImage(fxImage);
+				lineChartLUT.getData().clear();
 				XYChart.Series series1 = new XYChart.Series();
 				series1.setName("original Line");
-				series1.getData().add(new XYChart.Data( "0",0));
-				series1.getData().add(new XYChart.Data( "255",255));
-				lineChartLUT.getData().addAll(series1);
+				series1.getData().add(new XYChart.Data( 0,0));
+				series1.getData().add(new XYChart.Data( 255,255));
+				XYChart.Series series2 = new XYChart.Series();
+				series2.setName("Linear transformation");
+				
+				series2.getData().add(new XYChart.Data(0,0));
+				series2.getData().add(new XYChart.Data( 255,255));
+				series2.getData().add(new XYChart.Data(  x1,y1));
+				series2.getData().add(new XYChart.Data(  x2,y2));
+				lineChartLUT.getData().addAll(series1 ,series2);
+				//System.out.println(String.valueOf(x1).length());
+				
 				
 			
 		}catch(Exception e) {
@@ -188,12 +217,33 @@ public class StatsController {
 				standardDeviationLabel.setText("Standard deviation:" + pgmStatsService.getStandardDeviation());
 				drawHistograms();
 				drawImageAfterHeg();
-				drawImageAfterContrasteLUT(0, 0, 255, 255);
+				drawImageAfterContrasteLUT(0, 0, 255, 255,pgmStatsServiceLUT);
 				
 		}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	@FXML 
+	private void handleChangeLinearParameters(ActionEvent event) {
+		try {
+			//pgmStatsService = new PGMStatsService(getPgmFilePath());
+			PGMStatsService pgmFile = new PGMStatsService(pgmFilePath);
+			int x1 = Integer.parseInt(this.x1.getText());
+			int x2 = Integer.parseInt(this.x2.getText());
+			int y1 = Integer.parseInt(this.y1.getText());
+			int y2 = Integer.parseInt(this.y2.getText());
+			
+			drawImageAfterContrasteLUT(x1,y1,x2,y2 ,pgmFile);
+			
+			
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 

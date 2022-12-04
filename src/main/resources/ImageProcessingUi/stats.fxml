@@ -59,11 +59,36 @@
 
 <HBox>
 <children>
+<VBox>
+<children>
 <ImageView fx:id="imageViewAfterContrastLUT" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+<HBox>
+<children>
+    <Label>
+    <text>point 1 coordinates</text>
+</Label>
+<TextField id="x1" fx:id="x1" layoutX="115.0" layoutY="28.0" />
+ <TextField id="y1"  fx:id="y1" layoutX="115.0" layoutY="78.0" />
+ </children>
+ </HBox>
+      
+      <HBox>
+<children>
+    <Label>
+    <text>point 2 coordinates</text>
+</Label>
+      <TextField id="x2" fx:id="x2" layoutX="115.0" layoutY="28.0" />
+      <TextField id="y2"  fx:id="y2" layoutX="115.0" layoutY="78.0" />
+      </children>
+ </HBox>
+ <Button fx:id="chooseLinearParameters" text="submit" onAction="#handleChangeLinearParameters"/>
+</children>
+</VBox>
+
 
 <LineChart fx:id="lineChartLUT"  prefHeight="512.0" prefWidth="890.0" title="Linear Transformation">
 <xAxis>
-          <CategoryAxis fx:id="xAxisLUT" side="BOTTOM" />
+          <NumberAxis fx:id="xAxisLUT" side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis fx:id="yAxisLUT" side="LEFT" />
