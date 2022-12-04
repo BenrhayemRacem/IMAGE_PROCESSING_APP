@@ -8,36 +8,38 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+
 public class WelcomeController {
 
     //@FXML
    // private Label label;
     
     @FXML
-    private Button buttonDemo ;
+    private Button buttonFiltersPGM ;
     
     @FXML
     private Button buttonStats ;
+    
+    @FXML
+    private void navigateToFiltersPGMWindow(ActionEvent event) {
+    	try {
+    		Parent root = FXMLLoader.load(getClass().getResource("filtersPGM.fxml"));
+    		 Scene scene = new Scene(root , 900,600);
+		        scene.getStylesheets().add(getClass().getResource("filtersPGM.css").toExternalForm());
+		        Stage stage = new Stage();
+		        stage.setTitle("Image Processing app -Filters page-");
+		        stage.setMaximized(true);
+		        stage.setScene(scene);
+		        stage.show();
+    	}catch(Exception e) {
+    		
+    	}
+    }
 
     public void initialize() {
         //label.setText("Hello, JavaFX");
-    	buttonDemo.getStyleClass().add("buttonDemo");
-    	
-    	buttonDemo.setOnAction(e->{
-    		try {
-    			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("stats.fxml"));
-        	    Parent root1 = (Parent) fxmlLoader.load();
-        	    Stage stage = new Stage();
-        	   // stage.initModality(Modality.APPLICATION_MODAL);
-        	    //stage.initStyle(StageStyle.UNDECORATED);
-        	    stage.setTitle("ABC");
-        	    stage.setScene(new Scene(root1));  
-        	    stage.show();
-    		}catch(Exception ex) {
-    			
-    		}
-    		
-    	});
+  
     	
     	buttonStats.setOnAction(e->{
     		try {

@@ -16,9 +16,9 @@
 <Label>
     <text>Click on demo button down below to get a better idea</text>
 </Label>
-<Button fx:id="buttonDemo" text="Demo" />
+
    <Button fx:id="buttonStats" text="pgm stats"/>
-   <Button text="pgm filters"/>
+   <Button fx:id="buttonFiltersPGM" text="pgm filters" onAction="#navigateToFiltersPGMWindow"/>
    <Button text="ppm stats"/>
    <Button text="ppm filters"/>
    
