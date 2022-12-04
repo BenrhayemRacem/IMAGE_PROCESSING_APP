@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.image.ImageView?>
 
 <ScrollPane fx:controller="ImageProcessingUi.PGMFiltersController" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" maxHeight="200.0" minViewportHeight="0.0" minHeight="0.0">
@@ -12,8 +13,62 @@
     <text>This application is used for image processing</text>
 </Label>
 <Label fx:id="label" text="no pgm File selected" />
+
+<HBox>
+<children>
+<VBox>
+<children>
 <Button fx:id="chooseFileButton" text="choose PGM File" onAction="#handleFileChooseAction"/>
 <ImageView fx:id="imageView" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+</children>
+</VBox>
+
+<VBox>
+<children>
+<Button fx:id="addNoiseButton" text="Add Noise" onAction="#handleAddNoiseAction"/>
+<ImageView fx:id="imageViewAfterNoise" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+</children>
+</VBox>
+</children>
+</HBox>
+
+<HBox>
+<children>
+ <Label>
+    <text>Change Filter size ( Default is 3 * 3 )</text>
+</Label>
+<TextField id="filterSizeText" fx:id="filterSizeText" layoutX="115.0" layoutY="28.0" />
+<Button fx:id="applyMeanAndMedianFilter" text="Apply Filters" onAction="#handleMeanAndMedianFilter"/>
+</children>
+</HBox>
+<Label fx:id="filterSizeLabel" text="current Filter size is 3 * 3" />
+<HBox>
+<children>
+
+<VBox>
+<children>
+ <Label>
+    <text>Mean Filter</text>
+</Label>
+<Label fx:id="meanSNRLabel" text="Signal Noise Ratio: N/A" />
+<ImageView fx:id="imageViewAfterMeanFilter" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+</children>
+</VBox>
+
+<VBox>
+<children>
+ <Label>
+    <text>Median Filter</text>
+</Label>
+<Label fx:id="medianSNRLabel" text="Signal Noise Ratio: N/A" />
+<ImageView fx:id="imageViewAfterMedianFilter" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+</children>
+</VBox>
+</children>
+</HBox>
+
+
+<ImageView fx:id="imageViewRehausserContour" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
 </children>
 </VBox>
 </content>

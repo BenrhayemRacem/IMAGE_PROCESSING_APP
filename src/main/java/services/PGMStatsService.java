@@ -16,6 +16,14 @@ public class PGMStatsService {
 	private int[] LUT_contraste = new int[256];
 	private PGMModel pgmImage = new PGMModel();
 
+	public PGMModel getPgmImage() {
+		return pgmImage;
+	}
+
+	public void setPgmImage(PGMModel pgmImage) {
+		this.pgmImage = pgmImage;
+	}
+
 	public double[] getProbabiliteCumule() {
 		return probabiliteCumule;
 	}
