@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+
+<ScrollPane fx:controller="ImageProcessingUi.PPMSegmentationController" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" maxHeight="200.0" minViewportHeight="0.0" minHeight="0.0">
+<content>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"    >
+<children>
+<Label>
+    <text>This application is used for image processing</text>
+</Label>
+<Label fx:id="label" text="no ppm File selected" />
+<Button fx:id="chooseFileButton" text="choose PPM File" onAction="#handleFileChooseAction"/>
+<ImageView fx:id="imageView" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+
+<HBox>
+<children>
+<Label>
+    <text>red value threshold</text>
+</Label>
+<TextField id="red" fx:id="red" layoutX="115.0" layoutY="28.0" />
+</children>
+</HBox>
+
+<HBox>
+<children>
+<Label>
+    <text>green value threshold</text>
+</Label>
+ <TextField id="green"  fx:id="green" layoutX="115.0" layoutY="78.0" />
+ </children>
+ </HBox>
+
+ <HBox>
+<children>
+<Label>
+    <text>blue value threshold</text>
+</Label>
+ <TextField id="blue"  fx:id="blue" layoutX="115.0" layoutY="78.0" />
+ </children>
+ </HBox>
+
+ <Button fx:id="submitButton" text="submit" onAction="#handleSubmit"/>
+ <Label fx:id="labelColors" text="default values : red=100 , green=80 , blue=100" />
+ <HBox>
+ <children>
+ <VBox>
+ <children>
+ <Label>
+    <text>NORMAL threshold</text>
+</Label>
+ <ImageView fx:id="imageViewAfterThresholdNormal" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+  </children>
+  </VBox>
+  
+  <VBox>
+ <children>
+ <Label>
+    <text>AND threshold</text>
+</Label>
+ <ImageView fx:id="imageViewAfterThresholdAnd" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+  </children>
+  </VBox>
+  
+  <VBox>
+ <children>
+ <Label>
+    <text>OR threshold</text>
+</Label>
+ <ImageView fx:id="imageViewAfterThresholdOr" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+  </children>
+  </VBox>
+  </children>
+ </HBox>
+</children>
+</VBox>
+</content>
+</ScrollPane>

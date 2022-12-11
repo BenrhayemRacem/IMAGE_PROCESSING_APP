@@ -30,6 +30,9 @@ public class PGMFiltersController {
 	@FXML 
 	private Label label;
 	
+	@FXML
+	private Label contourSNRLabel;
+	
 	@FXML 
 	private Label meanSNRLabel;
 	
@@ -89,6 +92,7 @@ public class PGMFiltersController {
 				imageViewAfterMeanFilter.setImage(null);
 				imageViewAfterMedianFilter.setImage(null);
 				imageViewAfterNoise.setImage(null);
+				imageViewRehausserContour.setImage(null);
 				
 				displayChoosenPGMFile();
 				this.noiseAdded = false;
@@ -96,7 +100,7 @@ public class PGMFiltersController {
 				filterSizeLabel.setText("current Filter size is 3 * 3 ");
 				medianSNRLabel.setText("Signal Noise Ratio: N/A");
 				meanSNRLabel.setText("Signal Noise Ratio: N/A");
-				
+				contourSNRLabel.setText("Signal Noise Ratio: N/A");
 				
 				
 				
@@ -111,6 +115,7 @@ public class PGMFiltersController {
 		try {
 			URL imageURL = getClass().getResource("afterAddingNoise.pgm");
 			 String path = imageURL.getPath() ;
+			 System.out.println(path);
 			 PGMFiltersService pgmFiltersService = new PGMFiltersService(getPgmFilePath());
 			 pgmFiltersService.bruit(path);
 			 ImagePlus imagePlus = new ImagePlus(path);
@@ -182,6 +187,11 @@ public class PGMFiltersController {
 				ImagePlus imagePlus2 = new ImagePlus(pathContour);
 				 WritableImage fxImage2 = SwingFXUtils.toFXImage(imagePlus2.getBufferedImage(), null);
 				imageViewRehausserContour.setImage(fxImage2);
+				
+				double contourSNR = pgmFiltersServiceContour.SNR(imagePath,pathContour);
+				if(contourSNR != -1) {
+					contourSNRLabel.setText("Signal Noise Ratio: "+ contourSNR);
+				}
 			 
 			
 		}catch(Exception e) {

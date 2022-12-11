@@ -64,11 +64,21 @@
 <ImageView fx:id="imageViewAfterMedianFilter" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
 </children>
 </VBox>
+
+<VBox>
+<children>
+ <Label>
+    <text>Rehausser Contour</text>
+</Label>
+<Label fx:id="contourSNRLabel" text="Signal Noise Ratio: N/A" />
+<ImageView fx:id="imageViewRehausserContour" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+</children>
+</VBox>
 </children>
 </HBox>
 
 
-<ImageView fx:id="imageViewRehausserContour" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+
 </children>
 </VBox>
 </content>

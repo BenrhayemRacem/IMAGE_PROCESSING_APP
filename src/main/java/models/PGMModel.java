@@ -84,6 +84,8 @@ public class PGMModel {
 		   line = line.substring(0, line.length()-1);
 		   writer.write(line); writer.write("\n");
 	   }
+	   writer.flush();
+	   writer.close();
 
 	}
 	}

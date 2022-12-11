@@ -13,13 +13,11 @@
 <Label>
     <text>Here you can retrieve stats about pgm file , filter them </text>
 </Label>
-<Label>
-    <text>Click on demo button down below to get a better idea</text>
-</Label>
+
 
    <Button fx:id="buttonStats" text="pgm stats"/>
    <Button fx:id="buttonFiltersPGM" text="pgm filters" onAction="#navigateToFiltersPGMWindow"/>
-   <Button text="ppm stats"/>
+   <Button fx:id="ppmSegmentation" text="ppm segmentation" onAction="#navigateToFiltersPPMSegmentationWindow"/>
    <Button text="ppm filters"/>
    
 

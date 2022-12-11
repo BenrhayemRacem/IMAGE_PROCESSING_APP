@@ -213,8 +213,8 @@ public class StatsController {
 				label.setText(getPgmFilePath()+ "  selected");
 				
 				calculateStats();
-				meanLabel.setText("Mean:" + pgmStatsService.getMean());
-				standardDeviationLabel.setText("Standard deviation:" + pgmStatsService.getStandardDeviation());
+				meanLabel.setText("Mean: " + pgmStatsService.getMean());
+				standardDeviationLabel.setText("Standard deviation: " + pgmStatsService.getStandardDeviation());
 				drawHistograms();
 				drawImageAfterHeg();
 				drawImageAfterContrasteLUT(0, 0, 255, 255,pgmStatsServiceLUT);

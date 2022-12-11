@@ -1,0 +1,11 @@
+HBox{
+	-fx-fill-width :true;
+	-fx-spacing:10;
+	
+}
+
+VBox{
+	-fx-fill-width :true;
+	-fx-spacing:10;
+	-fx-font-size :14;
+}

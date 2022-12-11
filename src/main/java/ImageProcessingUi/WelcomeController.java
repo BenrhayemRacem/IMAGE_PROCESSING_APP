@@ -22,6 +22,25 @@ public class WelcomeController {
     private Button buttonStats ;
     
     @FXML
+    private Button ppmSegmentation;
+    
+    @FXML
+    private void navigateToFiltersPPMSegmentationWindow(ActionEvent event) {
+    	try {
+    		Parent root = FXMLLoader.load(getClass().getResource("segmentationPPM.fxml"));
+    		 Scene scene = new Scene(root , 900,600);
+		        scene.getStylesheets().add(getClass().getResource("segmentationPPM.css").toExternalForm());
+		        Stage stage = new Stage();
+		        stage.setTitle("Image Processing app -PPM segmentation-");
+		        stage.setMaximized(true);
+		        stage.setScene(scene);
+		        stage.show();
+    	}catch(Exception e) {
+    		
+    	}
+    }
+    
+    @FXML
     private void navigateToFiltersPGMWindow(ActionEvent event) {
     	try {
     		Parent root = FXMLLoader.load(getClass().getResource("filtersPGM.fxml"));
