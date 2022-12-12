@@ -18,9 +18,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
+import java.awt.image.BufferedImage;
+
 
 import ij.*;
 import ij.plugin.PGM_Reader;
+
+
+import org.opencv.core.Mat;
+import org.opencv.highgui.HighGui;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+
+import org.opencv.core.Point;
+import org.opencv.core.Size;
+
 
 
 public class PPMSegmentationController {
@@ -33,8 +45,12 @@ public class PPMSegmentationController {
 	
 	@FXML 
 	private Label label;
+	
 	@FXML 
 	private Label labelColors;
+	
+	@FXML 
+	private Label labelOtsu;
 	
 	@FXML
 	private ImageView imageView;
@@ -44,6 +60,15 @@ public class PPMSegmentationController {
 	private ImageView imageViewAfterThresholdAnd;
 	@FXML
 	private ImageView imageViewAfterThresholdOr;
+	
+	@FXML
+	private ImageView imageViewAfterThresholdOtsu;
+	
+	@FXML
+	private ImageView imageViewErode;
+	
+	@FXML
+	private ImageView imageViewDilate;
 	
 	 @FXML
 	 private TextField red ;
@@ -60,6 +85,11 @@ public class PPMSegmentationController {
 	 private ViewerUpdateThread viewerUpdateThreadAnd;
 
 	 private ViewerUpdateThread viewerUpdateThreadOr;
+	 
+	 private static final String[] ELEMENT_TYPE = { "Rectangle", "Cross", "Ellipse" };
+	    private int elementType = Imgproc.CV_SHAPE_RECT;
+	    private int kernelSize = 3;
+	    
 
 	
 	public void setPpmFilePath(String s) {
@@ -125,7 +155,7 @@ public class PPMSegmentationController {
 				//imageViewAfterSueilNormal.setImage(fxImage);
 			 //Image image = new Image(new File(path).toURI().toString());
 			 //imageViewAfterSueilNormal.setImage(image);
-			 
+			 	otsuAlgo();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -173,7 +203,7 @@ public class PPMSegmentationController {
 			String size = red.getText();
 			return Integer.parseInt(size);
 		}catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return 100;
 		}	
 	}
@@ -183,7 +213,7 @@ public class PPMSegmentationController {
 			String size = green.getText();
 			return Integer.parseInt(size);
 		}catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return 80;
 		}	
 	}
@@ -192,10 +222,38 @@ public class PPMSegmentationController {
 			String size = blue.getText();
 			return Integer.parseInt(size);
 		}catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return 100;
 		}	
 	}
+	
+	private void otsuAlgo() {
+		Mat src = Imgcodecs.imread(getPpmFilePath(), Imgcodecs.IMREAD_GRAYSCALE);
+		Mat dst = new Mat(src.rows(), src.cols(), src.type());
+		double threshold =Imgproc.threshold(src, dst, 0, 255, Imgproc.THRESH_OTSU);
+		java.awt.Image img = HighGui.toBufferedImage(dst);
+	      WritableImage writableImage= SwingFXUtils.toFXImage((BufferedImage) img, null);
+	      imageViewAfterThresholdOtsu.setImage(writableImage);
+	      labelOtsu.setText("otsu threshold: "+threshold);
+	        Mat element = Imgproc.getStructuringElement(elementType, new Size(2 * kernelSize + 1, 2 * kernelSize + 1),
+	                new Point(kernelSize, kernelSize));
+	      Mat matImgDst = new Mat();
+	      Imgproc.erode(src, matImgDst, element);
+	      
+	      java.awt.Image imgErod = HighGui.toBufferedImage(matImgDst);
+	      WritableImage writableImageErod= SwingFXUtils.toFXImage((BufferedImage) imgErod, null);
+	      imageViewErode.setImage(writableImageErod);
+	      
+	      Mat matImgDstDilate = new Mat();
+	      Imgproc.dilate(src,matImgDstDilate,element);
+	      
+	      java.awt.Image imgDilate = HighGui.toBufferedImage(matImgDstDilate);
+	      WritableImage writableImageDilate= SwingFXUtils.toFXImage((BufferedImage) imgDilate, null);
+	      imageViewDilate.setImage(writableImageDilate);
+	      
+	      
+	}
+	
 	public void initialize() {
 		
 	}

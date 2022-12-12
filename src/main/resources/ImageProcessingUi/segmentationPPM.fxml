@@ -75,6 +75,11 @@
   </VBox>
   </children>
  </HBox>
+  <Label fx:id="labelOtsu" text="otsu" />
+ <ImageView fx:id="imageViewAfterThresholdOtsu" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+<ImageView fx:id="imageViewErode" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+<ImageView fx:id="imageViewDilate" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+
 </children>
 </VBox>
 </content>

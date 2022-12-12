@@ -18,12 +18,13 @@ import javafx.scene.image.WritableImage;
 import javafx.embed.swing.SwingFXUtils;
 
 import ij.*;
-
+import org.opencv.core.Core;
 
 public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+    	nu.pattern.OpenCV.loadShared();
     	//ImagePlus imagePlus = new ImagePlus("C:\\Users\\MSI\\Desktop\\chat2.pgm");
     	//WritableImage fxImage = SwingFXUtils.toFXImage(imagePlus.getBufferedImage(), null);
     	//ImageView imageView = new ImageView(fxImage);

@@ -31,13 +31,13 @@ public void seuilNormal(int sRed,int sGreen , int sBlue, String filename) throws
 	//System.out.println(greenValues.length);
 		
 		for(int i=0 ; i<greenValues.length ; i++) {
-			if(redValues[i]> sRed) {
+			if(redValues[i]>= sRed) {
 				ppmImage.setOnePixelValueForRed(i,(short) 255);
 			}
-			if(greenValues[i]> sGreen) {
+			if(greenValues[i]>= sGreen) {
 				ppmImage.setOnePixelValueForGreen(i,(short) 255);
 			}
-			if(blueValues[i]> sBlue) {
+			if(blueValues[i]>= sBlue) {
 				ppmImage.setOnePixelValueForBlue(i,(short) 255);
 			}
 			if(redValues[i]<sRed) {
