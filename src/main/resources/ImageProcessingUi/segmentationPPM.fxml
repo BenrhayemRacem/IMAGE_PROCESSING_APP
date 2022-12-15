@@ -76,10 +76,38 @@
   </children>
  </HBox>
   <Label fx:id="labelOtsu" text="otsu" />
+ 
  <ImageView fx:id="imageViewAfterThresholdOtsu" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
-<ImageView fx:id="imageViewErode" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
-<ImageView fx:id="imageViewDilate" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
 
+
+<TextField id="kernel"  fx:id="kernel" layoutX="115.0" layoutY="78.0" />
+ <Button fx:id="kernelSizeButton" text="change kernel size" onAction="#handleChangeKernel"/>
+
+
+<Label>
+    <text>Erosion image : 3 types de kernel (rectangle, cross , ellipse)</text>
+</Label>
+<HBox>
+<children>
+<ImageView fx:id="imageViewErode" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+<ImageView fx:id="imageViewErode2" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+<ImageView fx:id="imageViewErode3" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+</children>
+</HBox>
+
+
+<Label>
+    <text>dilatation image : 3 types de kernel (rectangle, cross , ellipse)</text>
+</Label>
+<HBox>
+<children>
+<ImageView fx:id="imageViewDilate" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+<ImageView fx:id="imageViewDilate1" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+<ImageView fx:id="imageViewDilate2" fitHeight="400.0" fitWidth="500.0" layoutX="84.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+
+
+</children>
+</HBox>
 </children>
 </VBox>
 </content>

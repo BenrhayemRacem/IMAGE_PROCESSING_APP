@@ -43,6 +43,9 @@ public class PPMSegmentationController {
 	@FXML
 	private Button submitButton;
 	
+	@FXML
+	private Button kernelSizeButton;
+	
 	@FXML 
 	private Label label;
 	
@@ -68,7 +71,19 @@ public class PPMSegmentationController {
 	private ImageView imageViewErode;
 	
 	@FXML
+	private ImageView imageViewErode2;
+	
+	@FXML
+	private ImageView imageViewErode3;
+	
+	@FXML
 	private ImageView imageViewDilate;
+	
+	@FXML
+	private ImageView imageViewDilate1;
+	
+	@FXML
+	private ImageView imageViewDilate2;
 	
 	 @FXML
 	 private TextField red ;
@@ -76,6 +91,9 @@ public class PPMSegmentationController {
 	 private TextField green ;
 	 @FXML
 	 private TextField blue ;
+	 
+	 @FXML
+	 private TextField kernel ;
 	
 	private FileChooser fileChooser = new FileChooser();
 	private String ppmFilePath = null ;
@@ -227,6 +245,16 @@ public class PPMSegmentationController {
 		}	
 	}
 	
+	private int kernelSizeResolver() {
+		try {
+			String size = kernel.getText();
+			return Integer.parseInt(size);
+		}catch(Exception e) {
+			//e.printStackTrace();
+			return 3;
+		}	
+	}
+	
 	private void otsuAlgo() {
 		Mat src = Imgcodecs.imread(getPpmFilePath(), Imgcodecs.IMREAD_GRAYSCALE);
 		Mat dst = new Mat(src.rows(), src.cols(), src.type());
@@ -251,9 +279,51 @@ public class PPMSegmentationController {
 	      WritableImage writableImageDilate= SwingFXUtils.toFXImage((BufferedImage) imgDilate, null);
 	      imageViewDilate.setImage(writableImageDilate);
 	      
+	      Mat element1 = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_CROSS, new Size(2 * kernelSize + 1, 2 * kernelSize + 1),
+	                new Point(kernelSize, kernelSize));
+	      
+	      Mat matImgDstErode2 = new Mat();
+	      Imgproc.erode(src, matImgDstErode2, element1);
+	      java.awt.Image imgErod2 = HighGui.toBufferedImage(matImgDstErode2);
+	      WritableImage writableImageErod2= SwingFXUtils.toFXImage((BufferedImage) imgErod2, null);
+	      imageViewErode2.setImage(writableImageErod2);
+	      
+	      Mat matImgDstDilate1 = new Mat();
+	      Imgproc.dilate(src,matImgDstDilate1,element1);
+	      java.awt.Image imgDilate1 = HighGui.toBufferedImage(matImgDstDilate1);
+	      WritableImage writableImageDilate1= SwingFXUtils.toFXImage((BufferedImage) imgDilate1, null);
+	      imageViewDilate1.setImage(writableImageDilate1);
+	      
+	      
+	      
+	      Mat element2 = Imgproc.getStructuringElement(Imgproc.CV_SHAPE_ELLIPSE, new Size(2 * kernelSize + 1, 2 * kernelSize + 1),
+	                new Point(kernelSize, kernelSize));
+	      Mat matImgDstErode3 = new Mat();
+	      Imgproc.erode(src, matImgDstErode3, element2);
+	      java.awt.Image imgErod3 = HighGui.toBufferedImage(matImgDstErode3);
+	      WritableImage writableImageErod3= SwingFXUtils.toFXImage((BufferedImage) imgErod3, null);
+	      imageViewErode3.setImage(writableImageErod3);
+	      
+	      Mat matImgDstDilate2 = new Mat();
+	      Imgproc.dilate(src,matImgDstDilate2,element2);
+	      java.awt.Image imgDilate2 = HighGui.toBufferedImage(matImgDstDilate2);
+	      WritableImage writableImageDilate2= SwingFXUtils.toFXImage((BufferedImage) imgDilate2, null);
+	      imageViewDilate2.setImage(writableImageDilate2);
+	      
+	    
 	      
 	}
 	
+	@FXML
+	private void handleChangeKernel(ActionEvent event) {
+		try {
+			kernelSize = kernelSizeResolver();
+			otsuAlgo();
+			
+		}catch(Exception e) {
+			
+		}
+	}
 	public void initialize() {
 		
 	}
